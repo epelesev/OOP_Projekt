@@ -1,4 +1,4 @@
-public class Menüü {
+public class Otsused {
     /*
     suhtleb kasutajaga
     - kuvab joogid
