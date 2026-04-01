@@ -1,8 +1,7 @@
+import java.util.List;
+
 public class SoovitusteSüsteem {
-    /*
-    arvutab soovitused
-    - vaatab kasutaja eelistusi
-    - leiab sarnased joogid
-    - tagastab soovitused
-     */
+    public static List<Jook> soovita(Kasutaja kasutaja, List<Jook> kõik) {
+
+    }
 }

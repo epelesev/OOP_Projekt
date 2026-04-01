@@ -14,6 +14,6 @@ public class Jook {
     @Override
     public String toSring() {
         if (koostisosad.isEmpty()) return nimi + " (" + kirjeldus +")";
-        return nimi " (" + kirjeldus +") - koostisosad: " + String.join(", " koostisosad);
+        return nimi + " (" + kirjeldus +") - koostisosad: " + String.join(", ", koostisosad);
     }
 }
