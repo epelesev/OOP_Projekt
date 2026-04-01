@@ -44,3 +44,7 @@ Martini;Kuiv ja elegantne kokteil;Džinn, kuiv vermut, oliiv
 White Russian;Pehme ja koorene;Viin, kohviliköör, rõõsk koor
 Jägermeister;Saksamaa ürdiliköör, kange ja vürtsikas
 Jägerbomb;Plahvatuslik peojook;Jägermeister, Red Bull
+Mimosa;Pidulik hommikune klassika;Mullivein, apelsinimahl
+Hot Shot;Kohvine ja koorene;Galliano, kohv, vahukoor
+Sex on the Beach;Magus ja puuviljane;Viin, virsikuliköör, apelsinimahl, jõhvikamahl
+Šampanja;Ehtne Prantsuse mullivein
