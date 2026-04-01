@@ -9,7 +9,7 @@ public class Tinder {
         menüü.laeJoogid("Joogid.txt");
         Swipeimine swipeMootor = new Swipeimine(menüü.getJoogid(), kasutaja);
 
-        System.out.println("JOOGITINDER 1.0");
+        System.out.println("AlkoTinder");
 
         while (true) {
             System.out.println("\nPeamenüü: [S] Alusta swipeimist | [P] Profiil | [Q] Välju");
@@ -77,7 +77,7 @@ public class Tinder {
                     kasutaja.lisaHinnang(nimi, null);
                     System.out.println("Valik eemaldatud.");
                 } else {
-                    String[] sildid = {"", "(tahaks proovida)", "(ei meeldi)", "(meeldib)"};
+                    String[] sildid = {"", "like (tahaks proovida)", "dislike (ei meeldi)", "super like (meeldib)"};
                     kasutaja.lisaHinnang(nimi, sildid[Integer.parseInt(uus)]);
                     System.out.println("Staatus muudetud.");
                 }
