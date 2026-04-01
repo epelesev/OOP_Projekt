@@ -6,7 +6,7 @@ public class Swipeimine {
      */
 
     public static void swipe(Kasutaja kasutaja, Jook jook, String tegevus) {
-        kasutaja.eemaldaKoikjalt(jook);
+        kasutaja.eemaldaKõikjalt(jook);
 
         if (tegevus.equals("l")) {
             kasutaja.liked.add(jook);
