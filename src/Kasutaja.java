@@ -1,18 +1,43 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class Kasutaja {
-    List<Jook> liked = new ArrayList<>();
-    List<Jook> superLiked = new ArrayList<>();
-    List<Jook> disliked = new ArrayList<>();
+    private Map<String, String> hinnangud; //joogi nimi -> hinnang
+    private final String failiNimi = "kasutaja_valikud.txt";
 
-    public void eemaldaKõikjalt(Jook jook) {
-        liked.remove(jook);
-        superLiked.remove(jook);
-        disliked.remove(jook);
+    public Kasutaja() {
+        this.hinnangud = laeValikud();
     }
 
-    public boolean onHinnatud(Jook jook) {
-        return liked.contains(jook) || superLiked.contains(jook) || disliked.contains(jook);
+    public void lisaHinnang(String joogiNimi, String hinnang) {
+        if (hinnang == null) {
+            hinnangud.remove(joogiNimi);
+        } else {
+            hinnangud.put(joogiNimi, hinnang);
+        }
+    }
+
+    public Map<String, String> getHinnangud() { return hinnangud; }
+
+    public void salvestaValikud() {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(failiNimi))) {
+            for (Map.Entry<String, String> entry : hinnangud.entrySet()) {
+                pw.println(entry.getKey() + ";" + entry.getValue());
+            }
+        } catch (IOException e) {
+            System.out.println("Viga salvestamisel!");
+        }
+    }
+
+    private Map<String, String> laeValikud() {
+        Map<String, String> laetud = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(failiNimi))) {
+            String rida;
+            while ((rida = br.readLine()) != null) {
+                String[] osad = rida.split(";");
+                if (osad.length == 2) laetud.put(osad[0], osad[1]);
+            }
+        } catch (IOException e) { /* Faili ei eksisteeri veel */ }
+        return laetud;
     }
 }
