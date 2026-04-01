@@ -2,88 +2,67 @@ import java.util.*;
 
 public class Tinder {
     public static void main(String[] args) {
+        // 1. Algseadistus
         Scanner sc = new Scanner(System.in);
         Menüü menüü = new Menüü();
         Kasutaja kasutaja = new Kasutaja();
 
+        // 2. Andmete laadimine
         menüü.laeJoogid("Joogid.txt");
         Swipeimine swipeMootor = new Swipeimine(menüü.getJoogid(), kasutaja);
 
-        System.out.println("AlkoTinder");
+        System.out.println("=== ALKOTINDER ===");
 
+        // 3. Peamine programmi tsükkel
         while (true) {
-            System.out.println("\nPeamenüü: [S] Alusta swipeimist | [P] Profiil | [Q] Välju");
+            System.out.println("\nPEAMENÜÜ: [S] Swipe | [P] Profiil | [Q] Välju");
             String sisend = sc.nextLine().toUpperCase();
 
+            // VÄLJUMINE
             if (sisend.equals("Q")) {
                 kasutaja.salvestaValikud();
-                System.out.println("\nProgramm suletud. Valikud salvestatud.");
+                System.out.println("\nSinu tehtud otsused:");
+                // Kuvame lõpuks kõik tehtud valikud
+                kasutaja.getHinnangud().forEach((nimi, hinnang) ->
+                        System.out.println("- " + nimi + ": " + hinnang));
+                System.out.println("\nAndmed salvestatud. Nägemist!");
                 break;
             }
 
+            // SWIPEIMINE (Sisemine tsükkel järjestikuseks hindamiseks)
             else if (sisend.equals("S")) {
-                // UUS SISEMINE TSÜKKEL JÄRJEST SWIPEIMISEKS
-                while (true) {
-                    Jook jook = swipeMootor.valiJärgmineJook();
 
-                    if (jook == null) {
-                        System.out.println("\n--- Kõik saadaval olevad joogid on hinnatud! ---");
-                        break; // Läheb tagasi peamenüüsse
+                while (true) {
+                    Jook hetkeJook = swipeMootor.valiJärgmineJook();
+
+                    if (hetkeJook == null) {
+                        System.out.println("Rohkem uusi jooke hetkel pole. Vaata oma profiili või lisa jooke juurde!");
+                        break;
                     }
 
-                    System.out.println("\n" + jook);
-                    System.out.println("1: Tahaks proovida | 2: Ei meeldi | 3: Meeldib | 4: Jäta vahele | [T] Tagasi peamenüüsse");
+                    System.out.println("\n" + hetkeJook);
+                    System.out.println("1: Tahaks proovida | 2: Ei meeldi | 3: Meeldib | 4: Jäta vahele | [T] Tagasi");
 
                     String valik = sc.nextLine().toLowerCase();
 
                     if (valik.equals("t")) {
-                        break; // Katkestab swipeimise ja läheb peamenüüsse
+                        break; // Katkestab sisemise tsükli ja läheb peamenüüsse
                     }
 
-                    swipeMootor.annaHinnang(jook, valik);
+                    // Kui vajutatakse lihtsalt Enter või valik 4, liigub loogika lihtsalt edasi
+                    swipeMootor.annaHinnang(hetkeJook, valik);
                 }
             }
 
+            // PROFIIL (Kutsume välja Kasutaja klassi meetodi)
             else if (sisend.equals("P")) {
-                profiiliVaade(kasutaja, sc);
+                kasutaja.kuvaJaMuudaProfiili(sc);
+            }
+
+            else {
+                System.out.println("Tundmatu käsk. Kasuta S, P või Q.");
             }
         }
         sc.close();
-    }
-
-    // ProfiiliVaade meetod jääb samaks nagu varem...
-    private static void profiiliVaade(Kasutaja kasutaja, Scanner sc) {
-        Map<String, String> valikud = kasutaja.getHinnangud();
-        if (valikud.isEmpty()) {
-            System.out.println("Sul pole veel ühtegi valikut.");
-            return;
-        }
-
-        List<String> nimed = new ArrayList<>(valikud.keySet());
-        System.out.println("\n--- SINU VALIKUD ---");
-        for (int i = 0; i < nimed.size(); i++) {
-            System.out.println((i + 1) + ". " + nimed.get(i) + " [" + valikud.get(nimed.get(i)) + "]");
-        }
-
-        System.out.println("\nSisesta joogi number muutmiseks või '0' tagasiminekuks:");
-        try {
-            int nr = Integer.parseInt(sc.nextLine());
-            if (nr > 0 && nr <= nimed.size()) {
-                String nimi = nimed.get(nr - 1);
-                System.out.println("Vali uus staatus joogile " + nimi + ":");
-                System.out.println("1: Tahaks proovida | 2: Ei meeldi | 3: Meeldib | 4: EEMALDA VALIK");
-                String uus = sc.nextLine();
-                if (uus.equals("4")) {
-                    kasutaja.lisaHinnang(nimi, null);
-                    System.out.println("Valik eemaldatud.");
-                } else {
-                    String[] sildid = {"", "like (tahaks proovida)", "dislike (ei meeldi)", "super like (meeldib)"};
-                    kasutaja.lisaHinnang(nimi, sildid[Integer.parseInt(uus)]);
-                    System.out.println("Staatus muudetud.");
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Naaseme peamenüüsse.");
-        }
     }
 }

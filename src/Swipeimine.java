@@ -26,9 +26,9 @@ public class Swipeimine {
 
     public void annaHinnang(Jook jook, String valik) {
         switch (valik) {
-            case "1" -> kasutaja.lisaHinnang(jook.getNimi(), "(tahaks proovida)");
-            case "2" -> kasutaja.lisaHinnang(jook.getNimi(), "(ei meeldi)");
-            case "3" -> kasutaja.lisaHinnang(jook.getNimi(), "(meeldib)");
+            case "1" -> kasutaja.lisaHinnang(jook.getNimi(), "tahaks proovida");
+            case "2" -> kasutaja.lisaHinnang(jook.getNimi(), "ei meeldi");
+            case "3" -> kasutaja.lisaHinnang(jook.getNimi(), "meeldib");
         }
     }
 }
