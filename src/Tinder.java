@@ -41,7 +41,7 @@ public class Tinder {
                     }
 
                     System.out.println("\n" + hetkeJook);
-                    System.out.println("1: Tahaks proovida | 2: Ei meeldi | 3: Meeldib | 4: Jäta vahele | [T] Tagasi");
+                    System.out.println("1: Tahaks proovida | 2: Ei meeldi | 3: Meeldib | 4: Jäta vahele | [T] Tagasi peamenüüsse");
 
                     String valik = sc.nextLine().toLowerCase();
 
